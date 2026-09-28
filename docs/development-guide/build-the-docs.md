@@ -56,10 +56,3 @@ Open <http://127.0.0.1:8008/docs/>. The builder uses the current checkout for
 contain the documentation and its dependencies; it gets a separate environment
 so the API reference matches that version. Add `--latest-only` to skip tag builds.
 Output goes to `_site/`; a failed build preserves the previous site.
-
-## Publish the site
-
-The `Documentation` workflow publishes this repository to GitHub Pages. Set
-**Settings > Pages > Source** to **GitHub Actions** and use `kcoral.mlc.ai` as
-the custom domain. Allow `main` and `v*` release tags in the `github-pages`
-environment's deployment rules.
