@@ -56,3 +56,40 @@ Open <http://127.0.0.1:8008/docs/>. The builder uses the current checkout for
 contain the documentation and its dependencies; it gets a separate environment
 so the API reference matches that version. Add `--latest-only` to skip tag builds.
 Output goes to `_site/`; a failed build preserves the previous site.
+
+## Publish the site
+
+The `Documentation` workflow in `.github/workflows/docs.yml` builds and deploys
+the website directly from `mlc-ai/kcoral` to GitHub Pages, GitHub's static website
+hosting service. Pull requests build only `latest` and upload a Pages artifact
+for inspection. Pushes to `main` or version tags build the complete versioned
+site; a manual run on `main` can also republish it. Tag builds use `main` for
+`latest`. Pull requests and forks never deploy the production site.
+
+The build has read-only repository access. Only the deployment job receives
+permission to publish Pages and request an OpenID Connect (OIDC) token, which
+GitHub uses to verify the deployment's repository and ref. Publishing uses the
+workflow's built-in token and the `github-pages` environment; no separate
+repository or deployment key is needed.
+
+### Repository setup and migration
+
+The custom domain remains `kcoral.mlc.ai`, with documentation at `/docs/`.
+GitHub Pages settings belong to the repository and must be configured separately
+from the workflow:
+
+1. In `mlc-ai/kcoral`, open **Settings > Pages** and select **GitHub Actions** as
+   the build and deployment source. Configure the `github-pages` environment to
+   allow deployments from the `main` branch and release tags matching `v*`.
+2. Merge the workflow change and verify that its Pages deployment succeeds.
+   To retry, run the `Documentation` workflow manually on `main`.
+3. Move the custom domain from `mlc-ai/kcoral-docs` to `mlc-ai/kcoral`: remove it
+   from the old repository's Pages settings, disable Pages there, then set
+   `kcoral.mlc.ai` in the new repository's Pages settings. Keep the existing
+   domain name system (DNS) record pointing to `mlc-ai.github.io`, and enable
+   **Enforce HTTPS** when the certificate is ready. Actions deployments use the
+   custom domain in Pages settings; they do not need a committed `CNAME` file.
+4. Verify `https://kcoral.mlc.ai/docs/`, `/docs/latest/`, and any published release
+   versions. Delete the obsolete `DOCS_DEPLOY_KEY` secret in `mlc-ai/kcoral`,
+   revoke its deploy key in `mlc-ai/kcoral-docs`, and archive the old documentation
+   repository. Future documentation updates require only `mlc-ai/kcoral`.
