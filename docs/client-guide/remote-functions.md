@@ -5,13 +5,32 @@ The function decorator is the simplest way to use KCoral. Add
 the server and receive its return value. KCoral builds and submits the program
 for you.
 
-With the [client installed](../getting-started/installation.md), save this
-example in a Python file and replace the URL with your GPU server's address:
+## Start the remote server
+
+On a Linux machine with an NVIDIA GPU and a compatible driver, install and
+start the server:
+
+```bash
+python -m pip install 'kcoral[server]'
+kcoral server --device gpu --gpus 0 --host 0.0.0.0 --port 8000
+```
+
+Wait for `Application startup complete.` and leave this terminal running.
+`--host 0.0.0.0` lets clients connect from other machines. Run the server on a
+trusted network accessible only to trusted clients. See the
+[system requirements](../getting-started/installation.md#server-system-requirements)
+and [server guide](../server-guide/launch-the-server.md) for setup details.
+
+## Call a remote function
+
+On the client machine, [install the client](../getting-started/installation.md#install-the-client)
+and save this as `remote_sum.py`. Replace `server` in the URL with the GPU
+machine's hostname or IP address:
 
 ```python
 from kcoral import Client
 
-with Client("http://127.0.0.1:8000") as client:
+with Client("http://server:8000") as client:
 
     @client.function(timeout=30)
     def gpu_sum(n):
@@ -22,7 +41,8 @@ with Client("http://127.0.0.1:8000") as client:
     print(gpu_sum.remote(4))  # 6
 ```
 
-The server creates the values 0 through 3 on its GPU and returns their sum.
+Run `python remote_sum.py` on the client. The server creates the values 0
+through 3 on its GPU and returns their sum, `6`.
 `timeout=30` sets the server execution limit in seconds.
 
 - Define the function in a Python file so KCoral can read its source.
