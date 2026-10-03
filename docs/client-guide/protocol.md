@@ -420,7 +420,7 @@ To return a folder whose path is held in an earlier register:
 | Failures | Missing paths, wrong types, invalid runtime paths, read failures, and collection limits fail that return with `serialization`. Failed returns add no result or binary parts; earlier returns survive ordinary instruction failures. |
 | Size limit | Contents are buffered in the response and count against `max_response_bytes` (default 256 MiB). `output_limit_bytes` controls only stdout/stderr. |
 
-## Caching
+## Upload Caching
 
 | Property | Memory cache | File cache |
 | --- | --- | --- |
