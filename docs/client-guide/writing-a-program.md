@@ -160,38 +160,9 @@ harness or profiler to assess the kernel's execution time.
 
 ### Call remote functions
 
-KCoral also provides `@client.function()` to run a Python function on the server
-without building a program by hand. In this example, `gpu_sum.remote(4)` creates
-the values 0 through 3 on the server's GPU, adds them, and returns `6`:
-
-```python
-from kcoral import Client
-
-with Client("http://127.0.0.1:8000") as client:
-
-    @client.function(timeout=30)
-    def gpu_sum(n):
-        import torch
-
-        return torch.arange(n, device="cuda").sum().item()
-
-    print(gpu_sum.remote(4))  # 6
-```
-
-The decorated function must be self-contained. When writing one:
-
-- Define it in a Python file so the client can read its source.
-- Import dependencies inside the function and install them on the server.
-- Pass inputs as arguments; the function cannot use variables from the surrounding
-  scope or global variables defined outside it.
-- Use `.remote()` to run it on the server and receive its return value. An ordinary
-  call such as `gpu_sum(4)` runs locally.
-
-Each remote call is an independent request. `.remote()` raises an exception if
-the remote execution fails. See the [Python API](../python-api/index.rst) for
-supported argument types, restrictions, and other ways to invoke the function.
-For a complete example that uploads a tensor, adds one on the GPU, and returns a
-NumPy array, {download}`download remote_function.py <../../examples/remote_function.py>`.
+For the simplest way to run a Python function, use `@client.function()` and call
+`.remote()`. The [Remote functions guide](remote-functions.md) shows a complete
+example and explains the execution boundaries.
 
 ## Work with tensors and files
 
