@@ -7,6 +7,8 @@ server, and receive the results after the server executes its instructions in
 order. The [first GPU program](../getting-started/quickstart.md) walks through
 this workflow with a complete runnable example.
 
+## Preparation
+
 Before submitting a program, [install the server](../getting-started/installation.md#install-the-server)
 on a Linux machine with an NVIDIA GPU and a compatible driver, then start it:
 
