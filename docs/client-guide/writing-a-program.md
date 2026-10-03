@@ -7,6 +7,19 @@ server, and receive the results after the server executes its instructions in
 order. The [first GPU program](../getting-started/quickstart.md) walks through
 this workflow with a complete runnable example.
 
+Before submitting a program, [install the server](../getting-started/installation.md#install-the-server)
+on a Linux machine with an NVIDIA GPU and a compatible driver, then start it:
+
+```bash
+kcoral server --device gpu --gpus 0 --host 0.0.0.0 --port 8000
+```
+
+Wait for `Application startup complete.` and leave the server running on a
+trusted network accessible only to trusted clients. When connecting from
+another machine, replace `127.0.0.1` in the examples below with the server's
+reachable hostname or IP address. For details, see
+[Launch the server](../server-guide/launch-the-server.md).
+
 ## Build programs with instructions
 
 A program is a sequence of instructions that one worker on the server executes
