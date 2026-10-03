@@ -173,12 +173,6 @@ These metrics can help distinguish a busy server or GPU from a slow program.
 They describe the request as a whole; use the measurements from your benchmark
 harness or profiler to assess the kernel's execution time.
 
-### Call remote functions
-
-For the simplest way to run a Python function, use `@client.function()` and call
-`.remote()`. The [Remote functions guide](remote-functions.md) shows a complete
-example and explains the execution boundaries.
-
 ## Work with tensors and files
 
 A program may need tensor inputs or files for its code to read, and it may
