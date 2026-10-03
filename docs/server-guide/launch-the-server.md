@@ -271,9 +271,9 @@ bytes:
 
 | Option | Default | Meaning |
 | --- | --- | --- |
-| `--cache-capacity-bytes` | `17179869184` (16 GiB) | Memory cache budget, in bytes |
+| `--cache-capacity-bytes` | `17179869184` (16GiB) | Memory cache budget, in bytes |
 | `--disk-cache-dir` | The directory described below | Persistent file cache directory |
-| `--disk-cache-capacity-mbytes` | `16384` MiB (16 GiB) | File cache budget, in MiB |
+| `--disk-cache-capacity-mbytes` | `16384` MiB (16GiB) | File cache budget, in MiB |
 
 The memory cache evicts less recently used entries when it exceeds its budget.
 Entries in use by active requests are retained, so the budget can be exceeded

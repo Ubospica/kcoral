@@ -427,7 +427,7 @@ To return a folder whose path is held in an earlier register:
 | Upload kinds | `tensor`, `bytes`, `library` | `file` |
 | Storage | Python server process | Persistent disk cache |
 | Key | SHA-256 of raw content | SHA-256 of raw content |
-| Default budget | 16 GiB | 16384 MiB (16 GiB) |
+| Default budget | 16GiB | 16GiB |
 | Budget setting | `cache_capacity_bytes` / `--cache-capacity-bytes` | `disk_cache_capacity_mbytes` / `--disk-cache-capacity-mbytes` |
 | Retention | Less recently used, unpinned entries may be evicted. Objects larger than one quarter of the budget are not retained by default. | Entries may be evicted, unavailable, or too large to retain. |
 | Active requests | Referenced cached bytes are pinned while the request executes. | Requests retain their resolved bytes; eviction does not invalidate an admitted request. |
